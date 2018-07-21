@@ -1,0 +1,169 @@
+<% include head.ejs %>
+
+
+    <div class="container">
+        <div class="page-header">
+            <h2>My Adim Panel</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-header">
+                    <h2>Login</h2>
+                </div>
+                <form action="/login" method="POST" onsubmit="return loginValidation()">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                        <span id="emailid"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="passwrd" placeholder="Enter password" name="pwd" required>
+                        <span id="passwords"></span>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="remember"> Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-info">Submit</button>
+                </form>
+                <br>
+                <% if(error) {%>
+                    <span style="color:red">
+                        <%= error %>
+                    </span>
+                    <%}%>
+            </div>
+            <div class="col-md-offset-4 col-md-4">
+                <div class="page-header">
+                    <h2>Sign Up</h2>
+                </div>
+                <form action="/signin/user" method="POST" onsubmit="return validation()">
+                    <div class="form-group">
+                            <input type="text"
+                             name="username"
+                             class="form-control"
+                             id="username" 
+                             placeholder="Username"
+                             autocomplete="off">	
+                            <span id="user"  class="text-danger font-weight-bold"></span>					
+                    </div>
+                    <div class="form-group">
+                            <input type="text"
+                             name="email"
+                             class="form-control"
+                             id="emails" 
+                             placeholder="Enter Email"
+                             autocomplete="off">	
+                            <span id="emailids"  class="text-danger font-weight-bold"></span>					
+                    </div>
+                    <div class="form-group">
+                            <input type="text"
+                             name="pass"
+                             class="form-control"
+                             id="pass" 
+                             placeholder="Enter Password"
+                             autocomplete="off">	
+                            <span id="pas"  class="text-danger font-weight-bold"></span>					
+                    </div>
+                    <div class="form-group">
+                            <input type="text"
+                             name="conpass"
+                             class="form-control"
+                             id="conpass" 
+                             placeholder="Confirm Password"
+                             autocomplete="off">	
+                            <span id="confirmpass"  class="text-danger font-weight-bold"></span>					
+                    </div>
+                    
+                    <input type="submit" value="Save" class="btn btn-success">
+                </form>
+
+                <script>
+                    function validation(){
+                        var username = document.getElementById('username').value;
+                        var email = document.getElementById('emails').value;
+                        var password = document.getElementById('pass').value;
+                        var conpass = document.getElementById('conpass').value;
+                        if(username == "" ){
+                            document.getElementById('user').innerHTML = " must fill the username ";
+                            return false;
+                        }
+                        if((username.length <= 2) || (username.length > 20)){
+                            document.getElementById('user').innerHTML = "username les then 3 char or max 20 char"; 
+                            return false;
+                        }
+
+                        if (!isNaN(username)) {
+                            document.getElementById('user').innerHTML = "Number is not allowed"; 
+                            return false;
+                        }
+
+                        if(email == "" ){
+                            document.getElementById('emailids').innerHTML = " must fill the email ";
+                            return false;
+                        }
+
+                        if (email.indexOf('@') <= 0) {
+                            document.getElementById('emailids').innerHTML = "@ is invalid position"; 
+                            return false;
+                        }
+
+                        if ((email.charAt(email.length-4)!= '.') && (email.charAt(email.length-4)!= '.')) {
+                            document.getElementById('emailids').innerHTML = "invalid email."; 
+                            return false;
+                        }    
+
+                        if(password == "" ){
+                            document.getElementById('pas').innerHTML = " password don't empty ";
+                            return false;
+                        }
+
+                        if((password.length <= 4) || (password.length > 20)){
+                            document.getElementById('pas').innerHTML = "password les then 5 char or max 20 char"; 
+                            return false;
+                        }
+
+                        if(conpass == "" ){
+                            document.getElementById('confirmpass').innerHTML = " password don't empty ";
+                            return false;
+                        }
+                        if(password != conpass){
+                            document.getElementById('confirmpass').innerHTML = " password don't match ";
+                            return false;
+                        }
+                    }
+                </script>
+
+    
+                <!-- <!*
+                <script>
+                    function checkValidate() {
+                        var nameRegex = /^[a-zA-Z ]+$/;
+                        let password = document.getElementById('password').value;
+                        let confirmPasword = document.getElementById('confirmPasword').value;
+                        let firstName = document.getElementById('firstName').value;
+                        let confirmPasword = document.getElementById('confirmPasword').value;
+                        
+                        if(!nameRegex.test(firstName)){
+                            document.getElementById('firstNameError').classList.add('has-error');
+                            document.getElementById('firstNameError').style.display = 'block';
+                        }
+                        else if (password == confirmPasword) {
+                            return true;
+                        } else {
+                            alert('not same');
+                            document.getElementById('repeatPasswordInput').classList.add('has-error');
+                            document.getElementById('errorMessage').style.display = 'block';
+                            document.getElementById('passwordInput').classList.add('has-error');
+                            return false;
+                        }
+                    }
+                </script>
+                <!*> -->
+
+            </div>
+        </div>
+
+
+    </div>
